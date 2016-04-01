@@ -1566,8 +1566,10 @@
       if ( FT_READ_ULONG( temp ) )
         goto Exit;
       FT_TRACE4(( "                 POST fragment #%d: length=0x%08x\n", i, temp));
-      if ( 0x7FFFFFFFUL < temp )
+      if ( 0x7FFFFFFFUL < temp || pfb_len + temp + 6 < pfb_len )
       {
+        FT_TRACE2(( "             too long fragment length makes"
+                    " pfb_len confused: temp=0x%08x\n", temp ));
         error = FT_Err_Invalid_Offset;
         goto Exit;
       }
