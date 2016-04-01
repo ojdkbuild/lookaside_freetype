@@ -837,7 +837,7 @@
         FT_PtrDist  len;
 
 
-        if ( cur + 1 >= limit )
+        if ( cur + 2 >= limit )
         {
           FT_ERROR(( "t42_parse_charstrings: out of bounds\n" ));
           error = T42_Err_Invalid_File_Format;
