@@ -95,9 +95,11 @@ THE SOFTWARE.
     FT_Memory  memory = FT_FACE(face)->memory;
     FT_UInt    n;
 
+    FT_ULong   size;
 
-    if ( FT_STREAM_SEEK ( 0 )                          ||
-         FT_STREAM_READ_FIELDS ( pcf_toc_header, toc ) )
+
+    if ( FT_STREAM_SEEK( 0 )                          ||
+         FT_STREAM_READ_FIELDS( pcf_toc_header, toc ) )
       return PCF_Err_Cannot_Open_Resource;
 
     if ( toc->version != PCF_FILE_VERSION                 ||
@@ -151,20 +153,50 @@ THE SOFTWARE.
         break;
     }
 
-    /* we now check whether the `size' and `offset' values are reasonable: */
-    /* `offset' + `size' must not exceed the stream size                   */
+    /*
+     *  We now check whether the `size' and `offset' values are reasonable:
+     *  `offset' + `size' must not exceed the stream size.
+     *
+     *  Note, however, that X11's `pcfWriteFont' routine (used by the
+     *  `bdftopcf' program to create PDF font files) has two special
+     *  features.
+     *
+     *  - It always assigns the accelerator table a size of 100 bytes in the
+     *    TOC, regardless of its real size, which can vary between 34 and 72
+     *    bytes.
+     *
+     *  - Due to the way the routine is designed, it ships out the last font
+     *    table with its real size, ignoring the TOC's size value.  Since
+     *    the TOC size values are always rounded up to a multiple of 4, the
+     *    difference can be up to three bytes for all tables except the
+     *    accelerator table, for which the difference can be as large as 66
+     *    bytes.
+     *
+     */
+
     tables = face->toc.tables;
-    for ( n = 0; n < toc->count; n++ )
+    size   = stream->size;
+
+    for ( n = 0; n < toc->count - 1; n++ )
     {
       /* we need two checks to avoid overflow */
-      if ( ( tables->size   > stream->size                ) ||
-           ( tables->offset > stream->size - tables->size ) )
+      if ( ( tables->size   > size                ) ||
+           ( tables->offset > size - tables->size ) )
       {
         error = PCF_Err_Invalid_Table;
         goto Exit;
       }
       tables++;
     }
+
+    /* no check of `tables->size' for last table element ... */
+    if ( ( tables->offset > size ) )
+    {
+      error = PCF_Err_Invalid_Table;
+      goto Exit;
+    }
+    /* ... instead, we adjust `tables->size' to the real value */
+    tables->size = size - tables->offset;
 
 #ifdef FT_DEBUG_LEVEL_TRACE
 
@@ -714,8 +746,8 @@ THE SOFTWARE.
 
     FT_TRACE4(( "  number of bitmaps: %d\n", nbitmaps ));
 
-    /* XXX: PCF_Face->nmetrics is singed FT_Long, see pcf.h */
-    if ( face->nmetrics < 0 || nbitmaps != ( FT_ULong )face->nmetrics )
+    /* XXX: PCF_Face->nmetrics is signed FT_Long, see pcf.h */
+    if ( face->nmetrics < 0 || nbitmaps != (FT_ULong)face->nmetrics )
       return PCF_Err_Invalid_File_Format;
 
     if ( FT_NEW_ARRAY( offsets, nbitmaps ) )
