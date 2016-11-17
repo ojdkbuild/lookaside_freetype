@@ -369,6 +369,11 @@
           }
 
           fontlist[fcnt].name = strdup( buffer );
+          if ( statb.st_size > LONG_MAX )
+          {
+              fprintf( stderr, "The file is too big\n" );
+              exit( 1 );
+          }
           fontlist[fcnt].len  = statb.st_size;
 
           figurefiletype( &fontlist[fcnt] );
