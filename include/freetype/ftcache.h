@@ -667,8 +667,8 @@ FT_BEGIN_HEADER
   typedef struct  FTC_ImageTypeRec_
   {
     FTC_FaceID  face_id;
-    FT_UInt     width;
-    FT_UInt     height;
+    FT_Int      width;
+    FT_Int      height;
     FT_Int32    flags;
 
   } FTC_ImageTypeRec;
@@ -1047,6 +1047,54 @@ FT_BEGIN_HEADER
                               FTC_Node      *anode );
 
   /* */
+
+
+#ifdef FT_CONFIG_OPTION_OLD_INTERNALS
+
+  /*@***********************************************************************/
+  /*                                                                       */
+  /* <Struct>                                                              */
+  /*    FTC_FontRec                                                        */
+  /*                                                                       */
+  /* <Description>                                                         */
+  /*    A simple structure used to describe a given `font' to the cache    */
+  /*    manager.  Note that a `font' is the combination of a given face    */
+  /*    with a given character size.                                       */
+  /*                                                                       */
+  /* <Fields>                                                              */
+  /*    face_id    :: The ID of the face to use.                           */
+  /*                                                                       */
+  /*    pix_width  :: The character width in integer pixels.               */
+  /*                                                                       */
+  /*    pix_height :: The character height in integer pixels.              */
+  /*                                                                       */
+  typedef struct  FTC_FontRec_
+  {
+    FTC_FaceID  face_id;
+    FT_UShort   pix_width;
+    FT_UShort   pix_height;
+
+  } FTC_FontRec;
+
+
+  /* */
+
+
+  typedef FTC_FontRec*  FTC_Font;
+
+
+  FT_EXPORT( FT_Error )
+  FTC_Manager_Lookup_Face( FTC_Manager  manager,
+                           FTC_FaceID   face_id,
+                           FT_Face     *aface );
+
+  FT_EXPORT( FT_Error )
+  FTC_Manager_Lookup_Size( FTC_Manager  manager,
+                           FTC_Font     font,
+                           FT_Face     *aface,
+                           FT_Size     *asize );
+
+#endif /* FT_CONFIG_OPTION_OLD_INTERNALS */
 
 
 FT_END_HEADER

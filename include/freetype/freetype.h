@@ -766,15 +766,14 @@ FT_BEGIN_HEADER
     FT_ENC_TAG( FT_ENCODING_UNICODE,   'u', 'n', 'i', 'c' ),
 
     FT_ENC_TAG( FT_ENCODING_SJIS,    's', 'j', 'i', 's' ),
-    FT_ENC_TAG( FT_ENCODING_PRC,     'g', 'b', ' ', ' ' ),
+    FT_ENC_TAG( FT_ENCODING_GB2312,  'g', 'b', ' ', ' ' ),
     FT_ENC_TAG( FT_ENCODING_BIG5,    'b', 'i', 'g', '5' ),
     FT_ENC_TAG( FT_ENCODING_WANSUNG, 'w', 'a', 'n', 's' ),
     FT_ENC_TAG( FT_ENCODING_JOHAB,   'j', 'o', 'h', 'a' ),
 
     /* for backward compatibility */
-    FT_ENCODING_GB2312     = FT_ENCODING_PRC,
     FT_ENCODING_MS_SJIS    = FT_ENCODING_SJIS,
-    FT_ENCODING_MS_GB2312  = FT_ENCODING_PRC,
+    FT_ENCODING_MS_GB2312  = FT_ENCODING_GB2312,
     FT_ENCODING_MS_BIG5    = FT_ENCODING_BIG5,
     FT_ENCODING_MS_WANSUNG = FT_ENCODING_WANSUNG,
     FT_ENCODING_MS_JOHAB   = FT_ENCODING_JOHAB,

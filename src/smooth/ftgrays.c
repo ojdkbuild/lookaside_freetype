@@ -1880,7 +1880,7 @@ typedef ptrdiff_t  FT_PtrDist;
         ras.target.origin = target_map->buffer;
       else
         ras.target.origin = target_map->buffer
-              + ( target_map->rows - 1 ) * (unsigned int)target_map->pitch;
+              + (unsigned int) (( target_map->rows - 1 ) * target_map->pitch);
 
       ras.target.pitch = target_map->pitch;
 

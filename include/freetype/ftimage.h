@@ -260,13 +260,13 @@ FT_BEGIN_HEADER
   /*                                                                       */
   typedef struct  FT_Bitmap_
   {
-    unsigned int    rows;
-    unsigned int    width;
+    int             rows;
+    int             width;
     int             pitch;
     unsigned char*  buffer;
-    unsigned short  num_grays;
-    unsigned char   pixel_mode;
-    unsigned char   palette_mode;
+    short           num_grays;
+    char            pixel_mode;
+    char            palette_mode;
     void*           palette;
 
   } FT_Bitmap;

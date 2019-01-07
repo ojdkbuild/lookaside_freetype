@@ -2155,7 +2155,7 @@
           *c = FT_GET_LONG();
 
         if ( usePsName )
-          ns->psid = FT_GET_USHORT();
+          (void) FT_GET_USHORT();
 
         ft_var_to_normalized( face,
                               fvar_head.axisCount,
@@ -2206,7 +2206,6 @@
             ns = &mmvar->namedstyle[fvar_head.instanceCount];
 
             ns->strid = strid;
-            ns->psid  = TT_NAME_ID_PS_NAME;
 
             a = mmvar->axis;
             c = ns->coords;

@@ -705,7 +705,7 @@
     FT_Error    error = FT_Err_Ok;
     FT_Byte*    line;
     FT_Int      pitch, width, height, line_bits, h;
-    FT_UInt     bit_height, bit_width;
+    FT_Int      bit_height, bit_width;
     FT_Bitmap*  bitmap;
 
     FT_UNUSED( recurse_count );

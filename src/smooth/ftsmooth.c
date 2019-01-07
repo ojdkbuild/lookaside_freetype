@@ -292,8 +292,8 @@
 
     bitmap->pixel_mode = FT_PIXEL_MODE_GRAY;
     bitmap->num_grays  = 256;
-    bitmap->width      = (unsigned int)width;
-    bitmap->rows       = (unsigned int)height;
+    bitmap->width      = width;
+    bitmap->rows       = height;
     bitmap->pitch      = pitch;
 
     /* translate outline to render it into the bitmap */

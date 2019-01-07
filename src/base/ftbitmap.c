@@ -90,7 +90,7 @@
 
     if ( pitch < 0 )
       pitch = -pitch;
-    size = (FT_ULong)pitch * source->rows;
+    size = (FT_ULong)( pitch * source->rows );
 
     if ( target->buffer )
     {
@@ -100,7 +100,7 @@
 
       if ( target_pitch < 0 )
         target_pitch = -target_pitch;
-      target_size = (FT_ULong)target_pitch * target->rows;
+      target_size = (FT_ULong)( target_pitch * target->rows );
 
       if ( target_size != size )
         (void)FT_QREALLOC( target->buffer, target_size, size );
@@ -156,7 +156,7 @@
     int             pitch;
     int             new_pitch;
     FT_UInt         bpp;
-    FT_UInt         i, width, height;
+    FT_Int          i, width, height;
     unsigned char*  buffer = NULL;
 
 
@@ -194,17 +194,17 @@
     if ( ypixels == 0 && new_pitch <= pitch )
     {
       /* zero the padding */
-      FT_UInt  bit_width = (FT_UInt)pitch * 8;
-      FT_UInt  bit_last  = ( width + xpixels ) * bpp;
+      FT_Int  bit_width = pitch * 8;
+      FT_Int  bit_last  = ( width + xpixels ) * bpp;
 
 
       if ( bit_last < bit_width )
       {
         FT_Byte*  line  = bitmap->buffer + ( bit_last >> 3 );
         FT_Byte*  end   = bitmap->buffer + pitch;
-        FT_UInt   shift = bit_last & 7;
+        FT_Int    shift = bit_last & 7;
         FT_UInt   mask  = 0xFF00U >> shift;
-        FT_UInt   count = height;
+        FT_Int    count = height;
 
 
         for ( ; count > 0; count--, line += pitch, end += pitch )
@@ -233,7 +233,7 @@
     /* thus take care of the flow direction         */
     if ( bitmap->pitch > 0 )
     {
-      FT_UInt  len = ( width * bpp + 7 ) >> 3;
+      FT_Int  len = ( width * bpp + 7 ) >> 3;
 
 
       for ( i = 0; i < bitmap->rows; i++ )
@@ -243,7 +243,7 @@
     }
     else
     {
-      FT_UInt  len = ( width * bpp + 7 ) >> 3;
+      FT_Int  len = ( width * bpp + 7 ) >> 3;
 
 
       for ( i = 0; i < bitmap->rows; i++ )
@@ -275,8 +275,7 @@
   {
     FT_Error        error;
     unsigned char*  p;
-    FT_Int          i, x, pitch;
-    FT_UInt         y;
+    FT_Int          i, x, y, pitch;
     FT_Int          xstr, ystr;
 
 
@@ -420,8 +419,8 @@
       p += bitmap->pitch;
     }
 
-    bitmap->width += (FT_UInt)xstr;
-    bitmap->rows += (FT_UInt)ystr;
+    bitmap->width += xstr;
+    bitmap->rows += ystr;
 
     return FT_Err_Ok;
   }
@@ -506,8 +505,8 @@
     case FT_PIXEL_MODE_LCD_V:
     case FT_PIXEL_MODE_BGRA:
       {
-        FT_Int    pad, old_target_pitch, target_pitch;
-        FT_ULong  old_size;
+        FT_Int   pad, old_target_pitch, target_pitch;
+        FT_Long  old_size;
 
 
         old_target_pitch = target->pitch;
@@ -617,7 +616,7 @@
     case FT_PIXEL_MODE_LCD:
     case FT_PIXEL_MODE_LCD_V:
       {
-        FT_UInt  width = source->width;
+        FT_Int   width = source->width;
         FT_UInt  i;
 
 
