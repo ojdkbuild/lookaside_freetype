@@ -903,7 +903,7 @@ FT_BEGIN_HEADER
    * This macro is obsolete.  Support has been removed in FreeType
    * version 2.5.
    */
-#define FT_CONFIG_OPTION_OLD_INTERNALS
+/* #define FT_CONFIG_OPTION_OLD_INTERNALS */
 
 
   /*

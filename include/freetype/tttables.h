@@ -383,7 +383,7 @@ FT_BEGIN_HEADER
     FT_Short   xAvgCharWidth;
     FT_UShort  usWeightClass;
     FT_UShort  usWidthClass;
-    FT_Short   fsType;
+    FT_UShort  fsType;
     FT_Short   ySubscriptXSize;
     FT_Short   ySubscriptYSize;
     FT_Short   ySubscriptXOffset;
@@ -426,6 +426,11 @@ FT_BEGIN_HEADER
     FT_UShort  usDefaultChar;
     FT_UShort  usBreakChar;
     FT_UShort  usMaxContext;
+
+    /* only version 5 and higher: */
+
+    FT_UShort  usLowerOpticalPointSize;       /* in twips (1/20th points) */
+    FT_UShort  usUpperOpticalPointSize;       /* in twips (1/20th points) */
 
   } TT_OS2;
 
@@ -591,41 +596,43 @@ FT_BEGIN_HEADER
   /*    @FT_Get_Sfnt_Table API function.                                   */
   /*                                                                       */
   /* <Values>                                                              */
-  /*    ft_sfnt_head :: To access the font's @TT_Header structure.         */
+  /*    FT_SFNT_HEAD :: To access the font's @TT_Header structure.         */
   /*                                                                       */
-  /*    ft_sfnt_maxp :: To access the font's @TT_MaxProfile structure.     */
+  /*    FT_SFNT_MAXP :: To access the font's @TT_MaxProfile structure.     */
   /*                                                                       */
-  /*    ft_sfnt_os2  :: To access the font's @TT_OS2 structure.            */
+  /*    FT_SFNT_OS2  :: To access the font's @TT_OS2 structure.            */
   /*                                                                       */
-  /*    ft_sfnt_hhea :: To access the font's @TT_HoriHeader structure.     */
+  /*    FT_SFNT_HHEA :: To access the font's @TT_HoriHeader structure.     */
   /*                                                                       */
-  /*    ft_sfnt_vhea :: To access the font's @TT_VertHeader structure.     */
+  /*    FT_SFNT_VHEA :: To access the font's @TT_VertHeader structure.     */
   /*                                                                       */
-  /*    ft_sfnt_post :: To access the font's @TT_Postscript structure.     */
+  /*    FT_SFNT_POST :: To access the font's @TT_Postscript structure.     */
   /*                                                                       */
-  /*    ft_sfnt_pclt :: To access the font's @TT_PCLT structure.           */
+  /*    FT_SFNT_PCLT :: To access the font's @TT_PCLT structure.           */
   /*                                                                       */
   typedef enum  FT_Sfnt_Tag_
   {
-    ft_sfnt_head = 0,
-    ft_sfnt_maxp = 1,
-    ft_sfnt_os2  = 2,
-    ft_sfnt_hhea = 3,
-    ft_sfnt_vhea = 4,
-    ft_sfnt_post = 5,
-    ft_sfnt_pclt = 6,
+    FT_SFNT_HEAD,
+    FT_SFNT_MAXP,
+    FT_SFNT_OS2,
+    FT_SFNT_HHEA,
+    FT_SFNT_VHEA,
+    FT_SFNT_POST,
+    FT_SFNT_PCLT,
 
-    sfnt_max
+    FT_SFNT_MAX
 
   } FT_Sfnt_Tag;
 
-#define FT_SFNT_HEAD ft_sfnt_head
-#define FT_SFNT_MAXP ft_sfnt_maxp
-#define FT_SFNT_OS2  ft_sfnt_os2 
-#define FT_SFNT_HHEA ft_sfnt_hhea
-#define FT_SFNT_VHEA ft_sfnt_vhea
-#define FT_SFNT_POST ft_sfnt_post
-#define FT_SFNT_PCLT ft_sfnt_pclt
+  /* these constants are deprecated; use the corresponding `FT_Sfnt_Tag' */
+  /* values instead                                                      */
+#define ft_sfnt_head  FT_SFNT_HEAD
+#define ft_sfnt_maxp  FT_SFNT_MAXP
+#define ft_sfnt_os2   FT_SFNT_OS2
+#define ft_sfnt_hhea  FT_SFNT_HHEA
+#define ft_sfnt_vhea  FT_SFNT_VHEA
+#define ft_sfnt_post  FT_SFNT_POST
+#define ft_sfnt_pclt  FT_SFNT_PCLT
 
 
   /*************************************************************************/

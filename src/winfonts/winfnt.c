@@ -1038,7 +1038,7 @@
 
     p = font->fnt_frame + offset;
 
-    bitmap->width = FT_NEXT_SHORT_LE( p );
+    bitmap->width = FT_NEXT_USHORT_LE( p );
 
     /* jump to glyph entry */
     if ( new_format )
@@ -1079,7 +1079,7 @@
     /* allocate and build bitmap */
     {
       FT_Memory  memory = FT_FACE_MEMORY( slot->face );
-      FT_Int     pitch  = ( bitmap->width + 7 ) >> 3;
+      FT_UInt    pitch  = ( bitmap->width + 7 ) >> 3;
       FT_Byte*   column;
       FT_Byte*   write;
 

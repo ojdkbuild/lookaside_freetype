@@ -177,10 +177,14 @@ FT_BEGIN_HEADER
   /*                                                                       */
   /*    strid  :: The entry in `name' table identifying this instance.     */
   /*                                                                       */
+  /*    psid   :: The entry in `name' table identifying a PostScript name  */
+  /*              for this instance.                                       */
+  /*                                                                       */
   typedef struct  FT_Var_Named_Style_
   {
     FT_Fixed*  coords;
     FT_UInt    strid;
+    FT_UInt    psid;   /* since 2.7.1 */
 
   } FT_Var_Named_Style;
 

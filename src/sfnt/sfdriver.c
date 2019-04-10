@@ -867,8 +867,15 @@
       SFNT_Service  sfnt = (SFNT_Service)face->sfnt;
 
       FT_Long  instance = ( ( face->root.face_index & 0x7FFF0000L ) >> 16 ) - 1;
+      FT_UInt  psid     = mm_var->namedstyle[instance].psid;
 
       char*  ps_name = NULL;
+
+
+      /* try first to load the name string with index `postScriptNameID' */
+      if ( psid == 6                      ||
+           ( psid > 255 && psid < 32768 ) )
+        (void)sfnt->get_name( face, (FT_UShort)psid, &ps_name );
 
       if ( ps_name )
       {

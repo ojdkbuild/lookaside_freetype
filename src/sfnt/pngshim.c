@@ -209,10 +209,10 @@
     }
 
     if ( !populate_map_and_metrics                            &&
-         ( x_offset + metrics->width  > map->width ||
-           y_offset + metrics->height > map->rows  ||
-           pix_bits != 32                          ||
-           map->pixel_mode != FT_PIXEL_MODE_BGRA   ) )
+         ( (FT_UInt)x_offset + metrics->width  > map->width ||
+           (FT_UInt)y_offset + metrics->height > map->rows  ||
+           pix_bits != 32                                   ||
+           map->pixel_mode != FT_PIXEL_MODE_BGRA            ) )
     {
       error = FT_THROW( Invalid_Argument );
       goto Exit;
@@ -270,7 +270,7 @@
       map->num_grays  = 256;
 
       /* reject too large bitmaps similarly to the rasterizer */
-      if ( map->rows > 0x4FFF || map->width > 0x4FFF )
+      if ( map->rows > 0x7FFF || map->width > 0x7FFF )
       {
         error = FT_THROW( Array_Too_Large );
         goto DestroyExit;
@@ -346,7 +346,7 @@
 
     if ( populate_map_and_metrics )
     {
-      /* this doesn't overflow: 0x4FFF * 0x4FFF * 4 < 2^31 */
+      /* this doesn't overflow: 0x7FFF * 0x7FFF * 4 < 2^32 */
       FT_ULong  size = map->rows * (FT_ULong)map->pitch;
 
 
