@@ -1164,15 +1164,6 @@
       FT_FRAME_END
     };
 
-    /* `OS/2' version 5 and newer */
-    static const FT_Frame_Field  os2_fields_extra5[] =
-    {
-      FT_FRAME_START( 4 ),
-        FT_FRAME_USHORT( usLowerOpticalPointSize ),
-        FT_FRAME_USHORT( usUpperOpticalPointSize ),
-      FT_FRAME_END
-    };
-
 
     /* We now support old Mac fonts where the OS/2 table doesn't  */
     /* exist.  Simply put, we set the `version' field to 0xFFFF   */
@@ -1193,8 +1184,6 @@
     os2->usDefaultChar           = 0;
     os2->usBreakChar             = 0;
     os2->usMaxContext            = 0;
-    os2->usLowerOpticalPointSize = 0;
-    os2->usUpperOpticalPointSize = 0xFFFF;
 
     if ( os2->version >= 0x0001 )
     {
@@ -1207,13 +1196,6 @@
         /* only version 2 tables */
         if ( FT_STREAM_READ_FIELDS( os2_fields_extra2, os2 ) )
           goto Exit;
-
-        if ( os2->version >= 0x0005 )
-        {
-          /* only version 5 tables */
-          if ( FT_STREAM_READ_FIELDS( os2_fields_extra5, os2 ) )
-            goto Exit;
-        }
       }
     }
 

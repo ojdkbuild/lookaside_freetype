@@ -766,15 +766,14 @@ FT_BEGIN_HEADER
     FT_ENC_TAG( FT_ENCODING_UNICODE,   'u', 'n', 'i', 'c' ),
 
     FT_ENC_TAG( FT_ENCODING_SJIS,    's', 'j', 'i', 's' ),
-    FT_ENC_TAG( FT_ENCODING_PRC,     'g', 'b', ' ', ' ' ),
+    FT_ENC_TAG( FT_ENCODING_GB2312,  'g', 'b', ' ', ' ' ),
     FT_ENC_TAG( FT_ENCODING_BIG5,    'b', 'i', 'g', '5' ),
     FT_ENC_TAG( FT_ENCODING_WANSUNG, 'w', 'a', 'n', 's' ),
     FT_ENC_TAG( FT_ENCODING_JOHAB,   'j', 'o', 'h', 'a' ),
 
     /* for backward compatibility */
-    FT_ENCODING_GB2312     = FT_ENCODING_PRC,
     FT_ENCODING_MS_SJIS    = FT_ENCODING_SJIS,
-    FT_ENCODING_MS_GB2312  = FT_ENCODING_PRC,
+    FT_ENCODING_MS_GB2312  = FT_ENCODING_GB2312,
     FT_ENCODING_MS_BIG5    = FT_ENCODING_BIG5,
     FT_ENCODING_MS_WANSUNG = FT_ENCODING_WANSUNG,
     FT_ENCODING_MS_JOHAB   = FT_ENCODING_JOHAB,
@@ -799,7 +798,7 @@ FT_BEGIN_HEADER
 #define ft_encoding_latin_1         FT_ENCODING_ADOBE_LATIN_1
 #define ft_encoding_latin_2         FT_ENCODING_OLD_LATIN_2
 #define ft_encoding_sjis            FT_ENCODING_SJIS
-#define ft_encoding_gb2312          FT_ENCODING_PRC
+#define ft_encoding_gb2312          FT_ENCODING_GB2312
 #define ft_encoding_big5            FT_ENCODING_BIG5
 #define ft_encoding_wansung         FT_ENCODING_WANSUNG
 #define ft_encoding_johab           FT_ENCODING_JOHAB
