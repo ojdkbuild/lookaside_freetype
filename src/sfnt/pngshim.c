@@ -371,6 +371,7 @@
     png_read_end( png, info );
 
   DestroyExit:
+    FT_FREE( rows );
     png_destroy_read_struct( &png, &info, NULL );
     FT_Stream_Close( &stream );
 
